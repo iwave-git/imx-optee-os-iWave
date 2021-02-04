@@ -72,6 +72,8 @@ mx8mp-flavorlist = \
 
 mx8qm-flavorlist = \
 	mx8qmmek \
+	mx8qm_iwg27m \
+	mx8qm_iwg27m_8gb \
 
 mx8qx-flavorlist = \
 	mx8qxpmek \
@@ -344,9 +346,14 @@ CFG_UART_BASE ?= UART2_BASE
 $(call force,CFG_CORE_LARGE_PHYS_ADDR,y)
 endif
 
-ifneq (,$(filter $(PLATFORM_FLAVOR),mx8qxpmek mx8qmmek))
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8qxpmek mx8qmmek mx8qm_iwg27m_8gb))
 CFG_DDR_SIZE ?= 0x80000000
-CFG_UART_BASE ?= UART0_BASE
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8qm_iwg27m))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
 endif
 
 ifneq (,$(filter $(PLATFORM_FLAVOR),mx8dxmek))
