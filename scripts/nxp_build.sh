@@ -32,7 +32,10 @@ boards_list=(
 	mx8dxmek \
 	mx8mqevk \
 	mx8mmevk \
+        mx8mm_iwg34m \
+        mx8mm_iwg34m_2gb \
 	mx8mnevk \
+	mx8mn_iwg37m \
 	mx8mpevk \
 	mx8qxpmek \
 	mx8qmmek \

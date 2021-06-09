@@ -63,10 +63,13 @@ mx8mq-flavorlist = \
 	mx8mqevk
 
 mx8mm-flavorlist = \
-	mx8mmevk
+	mx8mmevk \
+        mx8mm_iwg34m \
+        mx8mm_iwg34m_2gb \
 
 mx8mn-flavorlist = \
-	mx8mnevk
+	mx8mnevk \
+	mx8mn_iwg37m \
 
 mx8mp-flavorlist = \
 	mx8mpevk
@@ -342,9 +345,19 @@ CFG_DDR_SIZE ?= 0x80000000
 CFG_UART_BASE ?= UART2_BASE
 endif
 
-ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mnevk))
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34m_2gb))
 CFG_DDR_SIZE ?= 0x80000000
-CFG_UART_BASE ?= UART2_BASE
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34m))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mn_iwg37m))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
 endif
 
 ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mpevk))
