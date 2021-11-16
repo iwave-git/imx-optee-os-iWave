@@ -36,6 +36,7 @@ boards_list=(
 	mx8mpevk \
 	mx8mp_iwg40m \
 	mx8mp_iwg40m_2gb \
+	mx8mp_iwg40m_8gb \
 	mx8qxpmek \
 	mx8qmmek \
 	mx8dxlevk \
