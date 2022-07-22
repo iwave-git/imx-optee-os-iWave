@@ -64,10 +64,22 @@ mx8mq-flavorlist = \
 
 mx8mm-flavorlist = \
 	mx8mmevk \
+        mx8mm_iwg34m \
+        mx8mm_iwg34m_2gb \
+        mx8mm_iwg34s \
+        mx8mm_iwg34s_2gb \
+        mx8mm_iwg34s_4gb \
+        mx8mm_iwg34s_8gb \
+        mx8mm_iwg34m_q7 \
+        mx8mm_iwg34m_q7_2gb \
 	mx8mm_cl_iot_gate
 
 mx8mn-flavorlist = \
-	mx8mnevk
+	mx8mnevk \
+        mx8mn_iwg37m \
+        mx8mn_iwg37m_2gb \
+        mx8mn_iwg37s \
+        mx8mn_iwg37m_q7
 
 mx8mp-flavorlist = \
 	mx8mpevk \
@@ -366,6 +378,53 @@ CFG_DDR_SIZE ?= 0x80000000
 CFG_UART_BASE ?= UART2_BASE
 endif
 
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34m))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34m_2gb))
+CFG_DDR_SIZE ?= 0x80000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34s))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34s_2gb))
+CFG_DDR_SIZE ?= 0x80000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34s_4gb))
+CFG_DDR_SIZE ?= 0x100000000
+CFG_UART_BASE ?= UART4_BASE
+$(call force,CFG_MX8MM_4GB,y)
+$(call force,CFG_CORE_LARGE_PHYS_ADDR,y)
+$(call force,CFG_CORE_ARM64_PA_BITS,36)
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34s_8gb))
+CFG_DDR_SIZE ?= 0xC0000000
+CFG_DRAM1_SIZE ?= 0x00000000
+CFG_UART_BASE ?= UART4_BASE
+$(call force,CFG_MX8MM_8GB,y)
+$(call force,CFG_CORE_LARGE_PHYS_ADDR,y)
+$(call force,CFG_CORE_ARM64_PA_BITS,36)
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34m_q7))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_iwg34m_q7_2gb))
+CFG_DDR_SIZE ?= 0x80000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
 ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mm_cl_iot_gate))
 CFG_DDR_SIZE ?= 0x40000000
 CFG_UART_BASE ?= UART3_BASE
@@ -376,6 +435,26 @@ endif
 ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mnevk))
 CFG_DDR_SIZE ?= 0x80000000
 CFG_UART_BASE ?= UART2_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mn_iwg37m))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mn_iwg37m_2gb))
+CFG_DDR_SIZE ?= 0x80000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mn_iwg37s))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
+endif
+
+ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mn_iwg37m_q7))
+CFG_DDR_SIZE ?= 0x40000000
+CFG_UART_BASE ?= UART4_BASE
 endif
 
 ifneq (,$(filter $(PLATFORM_FLAVOR),mx8mpevk))
@@ -526,6 +605,9 @@ ifneq (,$(filter y, $(CFG_MX8MN) $(CFG_MX8MP) $(CFG_MX8DX) $(CFG_MX8DXL)))
 CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) + 0x16000000)
 else ifneq (,$(filter y, $(CFG_MX8ULP)))
 CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) + 0x26000000)
+# IWG34: fix optee load address at 0xbe000000 for 4GB and 8GB platforms
+else ifneq (,$(filter y, $(CFG_MX8MM_4GB) $(CFG_MX8MM_8GB)))
+CFG_TZDRAM_START ?= (0xbe000000)
 else ifneq (,$(filter y, $(CFG_MX8MM) $(CFG_MX8MQ) $(CFG_MX8QM) $(CFG_MX8QX)))
 CFG_TZDRAM_START ?= ($(CFG_DRAM_BASE) - 0x02000000 + $(CFG_DDR_SIZE))
 else

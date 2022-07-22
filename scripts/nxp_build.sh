@@ -35,7 +35,19 @@ boards_list=(
 	imx-mx8dxmek \
 	imx-mx8mqevk \
 	imx-mx8mmevk \
+        imx-mx8mm_iwg34m \
+        imx-mx8mm_iwg34m_2gb \
+        imx-mx8mm_iwg34s \
+        imx-mx8mm_iwg34s_2gb \
+        imx-mx8mm_iwg34s_4gb \
+        imx-mx8mm_iwg34s_8gb \
+        imx-mx8mm_iwg34m_q7 \
+        imx-mx8mm_iwg34m_q7_2gb \
 	imx-mx8mnevk \
+        imx-mx8mn_iwg37m \
+        imx-mx8mn_iwg37m_2gb \
+        imx-mx8mn_iwg37s \
+        imx-mx8mn_iwg37m_q7 \
 	imx-mx8mpevk \
 	imx-mx8qxpmek \
 	imx-mx8qmmek \
